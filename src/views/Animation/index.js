@@ -8,7 +8,7 @@ export default class Animation extends Component<Props> {
    render() {
      return (
        <View style={styles.container}>
-         
+         <Text>{'动画界面'}</Text>
        </View>
        )
    }
@@ -18,6 +18,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red',
+        backgroundColor: '#fff',
     },
 });

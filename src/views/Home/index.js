@@ -12,7 +12,6 @@ import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,To
 let {height, width} = Dimensions.get('window');
 
 
-
 type Props = {};
 export default class Home extends Component<Props> {
 
