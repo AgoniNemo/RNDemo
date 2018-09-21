@@ -16,7 +16,7 @@ type Props = {};
 export default class Home extends Component<Props> {
 
   static navigationOptions = {
-   title: 'Home页面'
+   title: 'Home页面',
   };
   constructor(props){
     super(props)
@@ -33,7 +33,7 @@ export default class Home extends Component<Props> {
           horizontal={false}
           data={this.state.data}
           // ItemSeparatorComponent={this.separatorComponent}
-          renderItem={({item}) => this.createCell(item)}
+          renderItem={({item,index}) => this.createCell(item,index)}
         />
       </View>
     )
@@ -43,7 +43,7 @@ export default class Home extends Component<Props> {
     setTimeout(() => {
       this.setState({
         data: [
-          {key:'Animation'},
+          {key:'Animations'},
           {key:'Animation'}
         ]
       })
@@ -51,22 +51,22 @@ export default class Home extends Component<Props> {
 
   }
 
-  createCell(item) {
+  createCell(item,index) {
     return (
       <TouchableOpacity
       activeOpacity = {0.5}
-      onPress={() => this.cellClick(item)}
+      onPress={() => this.cellClick(item,index)}
         >
         <View style={styles.cell}>
-          <Text style={styles.text}>{item.key}</Text>
+          <Text style={styles.text}>{`第${index}行`}</Text>
         </View>
       </TouchableOpacity>
     );
   }
 
-  cellClick(item) {
+  cellClick(item,index) {
     this.props.navigation.push(item.key);
-    // ToastAndroid.show(`点击了${this.props.navigation}`, ToastAndroid.SHORT);
+    ToastAndroid.show(`点击了${index}`, ToastAndroid.SHORT);
   }
 
   /// 分割线
