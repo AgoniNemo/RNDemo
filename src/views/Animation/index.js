@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Platform, StyleSheet, Text, View, Image, Dimensions} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Animated,ToastAndroid} from 'react-native';
 let {height, width} = Dimensions.get('window');
 
 type Props = {};
@@ -8,16 +8,61 @@ export default class Animation extends Component<Props> {
         title: '动画界面',
         header: null,
     };
+
+    state = {
+        fadeAnim: new Animated.Value(1),
+        X: new Animated.Value(0),
+    }
+
    render() {
+    let { fadeAnim , X} = this.state;
      return (
        <View style={styles.container}>
          <View style={styles.frontImage}>
-             <Image source={require('assets/image/back.png')}
-             style={styles.img}
-             />
+            <Animated.View style={{
+                                    ...styles.animate,
+                                    marginTop: X,
+                                    opacity: fadeAnim}}>
+                <Image source={require('assets/image/logo.png')}></Image>
+            </Animated.View>
+         </View>
+         <View style={{marginTop: 50}}>
+             <TouchableOpacity onPress={this.viewClick.bind(this)}>
+                <Text>动画开始</Text>
+             </TouchableOpacity>
          </View>
        </View>
        )
+   }
+
+   viewClick() {
+    // Animated.timing(                  // 随时间变化而执行动画
+    //     this.state.fadeAnim,            // 动画中的变量值
+    //     {
+    //       toValue: 0,                   // 透明度最终变为0，即完全透明
+    //       duration: 2000,              // 让动画持续一段时间
+    //     }
+    // ).start();
+    Animated.sequence([
+        Animated.parallel([
+            Animated.spring(
+                this.state.fadeAnim,
+                {
+                    toValue: 0,
+                    duration: 2000,
+                }
+            ),
+            // Animated,timing(
+            //     this.state.X,
+            //     {
+            //         toValue: 20,
+            //         duration: 20000,
+            //     }
+            // )
+        ])
+    ]).start();
+
+    // ToastAndroid.show('图片点击！', ToastAndroid.SHORT);
    }
 }
 const styles = StyleSheet.create({
@@ -28,14 +73,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
     },
-    img: {
-        resizeMode: 'cover',
-    },
-    frontImage: {
-        position: 'absolute',
-        zIndex: 1,
-    },
-    behindImage: {
-        zIndex: 2,
-    },
+    animate: {
+        width:200,
+        height:200,
+        backgroundColor: 'red'
+    }
 });
