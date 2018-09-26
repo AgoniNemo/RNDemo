@@ -49,19 +49,19 @@ export default class Animation extends Component<Props> {
                 this.state.fadeAnim,
                 {
                     toValue: 0,
-                    duration: 2000,
+                    duration: 20000,
                 }
             ),
-            // Animated,timing(
-            //     this.state.X,
-            //     {
-            //         toValue: 20,
-            //         duration: 20000,
-            //     }
-            // )
+            Animated.spring(
+                this.state.X,
+                {
+                    toValue: -200,
+                    duration: 20000,
+                }
+            )
         ])
     ]).start();
-
+    
     // ToastAndroid.show('图片点击！', ToastAndroid.SHORT);
    }
 }
