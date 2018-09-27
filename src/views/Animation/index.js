@@ -55,13 +55,13 @@ export default class Animation extends Component<Props> {
             Animated.spring(
                 this.state.X,
                 {
-                    toValue: -200,
+                    toValue: 200,
                     duration: 20000,
                 }
             )
         ])
     ]).start();
-    
+
     // ToastAndroid.show('图片点击！', ToastAndroid.SHORT);
    }
 }
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         position: 'relative',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#fff',
     },
