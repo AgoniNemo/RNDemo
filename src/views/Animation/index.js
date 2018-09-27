@@ -28,11 +28,20 @@ export default class Animation extends Component<Props> {
          </View>
          <View style={{marginTop: 50}}>
              <TouchableOpacity onPress={this.viewClick.bind(this)}>
-                <Text>动画开始</Text>
+                <Text>Animated动画</Text>
+             </TouchableOpacity>
+         </View>
+         <View style={{marginTop: 10}}>
+             <TouchableOpacity onPress={this.translateAnimated.bind(this)}>
+                <Text>translate动画</Text>
              </TouchableOpacity>
          </View>
        </View>
        )
+   }
+
+   componentDidMount() {
+       // 网络 
    }
 
    viewClick() {
@@ -64,6 +73,12 @@ export default class Animation extends Component<Props> {
 
     // ToastAndroid.show('图片点击！', ToastAndroid.SHORT);
    }
+
+
+   translateAnimated() {
+
+   }
+
 }
 const styles = StyleSheet.create({
     container: {
