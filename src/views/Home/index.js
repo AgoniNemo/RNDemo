@@ -34,6 +34,7 @@ export default class Home extends Component<Props> {
           data={this.state.data}
           // ItemSeparatorComponent={this.separatorComponent}
           renderItem={({item,index}) => this.createCell(item,index)}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     )
@@ -43,8 +44,9 @@ export default class Home extends Component<Props> {
     setTimeout(() => {
       this.setState({
         data: [
-          {key:'Animations'},
-          {key:'Animation'}
+          {vc:'Animations',text:'Animations界面',key:0},
+          {vc:'Animation',text:'Animation界面',key:1},
+          {vc:'Video',text:'Video界面',key:2}
         ]
       })
     }, 200);
@@ -65,7 +67,7 @@ export default class Home extends Component<Props> {
   }
 
   cellClick(item,index) {
-    this.props.navigation.push(item.key);
+    this.props.navigation.push(item.vc);
     ToastAndroid.show(`点击了${index}`, ToastAndroid.SHORT);
   }
 

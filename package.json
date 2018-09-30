@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-video": "^3.2.1",
     "react-navigation": "^2.16.0"
   },
   "devDependencies": {

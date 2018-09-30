@@ -76,10 +76,11 @@ export default class Animation extends Component<Props> {
 
 
    translateAnimated() {
-        this.styles.animate.transform = [
-            {translateX: 20},
-            {translateY: 200},
-        ]
+        this.props.navigation.goBack();
+        // this.styles.animate.transform = [
+        //     {translateX: 20},
+        //     {translateY: 200},
+        // ]
    }
 
 }
