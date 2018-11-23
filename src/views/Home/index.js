@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,FlatList,Dimensions,TouchableOpacity,ToastAndroid} from 'react-native';
+import TableView from 'src/Components/TableView/index'
 
 let {height, width} = Dimensions.get('window');
 
@@ -28,46 +29,62 @@ export default class Home extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.container}>
-        <FlatList
-          horizontal={false}
-          data={this.state.data}
-          // ItemSeparatorComponent={this.separatorComponent}
-          renderItem={({item,index}) => this.createCell(item,index)}
-          keyExtractor={(item, index) => index.toString()}
+        <TableView
+          style={styles.container}
+          pageLen={10}
+          renderRow={this.createCell.bind(this)}
+          refresh={this._refresh.bind(this)}
+          loadMore={this._loadMore.bind(this)}
         />
-      </View>
     )
   }
+
+  // 20180730 刷新
+_refresh(callBack){
+  
+  let list = []
+  for (let index = 0; index < 20; index++) {
+    list.push({vc:`old Video${index}`,text:`第${index}行`,key:index})
+  }
+  callBack(list);
+}
+ 
+// 20180730 加载更多
+_loadMore(page,callBack){
+ 
+  let list = []
+  for (let index = 20; index < 10; index++) {
+      list.push({vc:`Video${index}`,text:`第${index}行`,key:index})
+  }
+  let old = this.state.data
+  old.concat(list)
+  callBack(old)
+}
+ 
   
   componentDidMount() {
+    let list = []
+    for (let index = 0; index < 20; index++) {
+      list.push({vc:`old Video${index}`,text:`第${index}行`,key:index})
+    }
     setTimeout(() => {
       this.setState({
-        data: [
-          {vc:'Animations',text:'Animations界面',key:0},
-          {vc:'Animation',text:'Animation界面',key:1},
-          {vc:'Video',text:'Video界面',key:2}
-        ]
+        data: list
       })
     }, 200);
-
   }
 
-  createCell(item,index) {
+  createCell(row) {
+    console.log('createCell');
+    
     return (
-      <TouchableOpacity
-      activeOpacity = {0.5}
-      onPress={() => this.cellClick(item,index)}
-        >
         <View style={styles.cell}>
-          <Text style={styles.text}>{`第${index}行`}</Text>
+          <Text style={styles.text}>{`第${row}行`}</Text>
         </View>
-      </TouchableOpacity>
     );
   }
 
   cellClick(item,index) {
-    this.props.navigation.push(item.vc);
     ToastAndroid.show(`点击了${index}`, ToastAndroid.SHORT);
   }
 
@@ -82,7 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
   },
   cell: {
     width: width,
